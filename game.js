@@ -8,6 +8,7 @@ const btnDown = document.querySelector('#down');
 let canvasSize;
 let elementsSize;
 let level = 0;
+let lives = 3;
 
 const playerPosition = {
   x: undefined,
@@ -104,7 +105,7 @@ function movePlayer() {
    return enemyColisionX && enemyColisionY;
   })
   if (enemyColision) {
-    console.log('You crashed with an enemy')
+    levelFail();
   }
   game.fillText(emojis['PLAYER'], playerPosition.x, playerPosition.y);
 }
@@ -113,6 +114,22 @@ function levelWin() {
   console.log('Next Level')
   level++
   startGame()
+}
+
+function levelFail() {
+  console.log('You crashed with an enemy')
+  lives--;
+
+  console.log(lives);
+
+  if (lives <= 0)  {
+    level = 0;
+    lives = 3;
+  }
+
+  playerPosition.x = undefined;
+  playerPosition.y = undefined;
+  startGame();
 }
 
 function gameWin() {
